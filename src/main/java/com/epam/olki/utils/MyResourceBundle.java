@@ -12,7 +12,7 @@ public class MyResourceBundle {
 
     static {
         Locale locale = Locale.getDefault();
-        resourceBundle = ResourceBundle.getBundle("regexp", locale);
+        resourceBundle = ResourceBundle.getBundle("main.resources.regexp", locale);
     }
 
     public static String getRegExp(String key) {

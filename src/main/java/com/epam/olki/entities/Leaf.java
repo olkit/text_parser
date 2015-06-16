@@ -15,21 +15,20 @@ public class Leaf implements BaseComponent{
 
     public void addElement(BaseComponent part) {
         throw new UnsupportedOperationException();
-
     }
 
     public void removeElement(BaseComponent part) {
         throw new UnsupportedOperationException();
-
     }
 
     public BaseComponent getElement(int index) {
         return this;
     }
 
-    public void parse() {
+    public int getSize() {
         throw new UnsupportedOperationException();
     }
+
 
     public Iterator<BaseComponent> getIterator() {
         throw new UnsupportedOperationException();

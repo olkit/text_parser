@@ -1,5 +1,3 @@
-package com.epam.olki;
-
 import com.epam.olki.demo.Application;
 
 /**

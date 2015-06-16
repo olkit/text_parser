@@ -13,7 +13,9 @@ public interface BaseComponent {
 
     public BaseComponent getElement(int index);
 
-    public void parse();
+    public int getSize();
 
     public Iterator<BaseComponent> getIterator();
+
+    public String toString();
 }

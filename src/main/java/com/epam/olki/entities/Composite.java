@@ -9,29 +9,44 @@ import java.util.List;
  */
 public class Composite implements BaseComponent{
 
-    private List<BaseComponent> partList = new ArrayList<BaseComponent>();
+    private List<BaseComponent> partList;
 
     public Composite() {
+        partList = new ArrayList<BaseComponent>();
     }
 
     public void addElement(BaseComponent part) {
         partList.add(part);
-
     }
 
     public void removeElement(BaseComponent part) {
         partList.remove(part);
     }
 
-    public BaseComponent getElement(int index) {
-        return partList.get(index);
+    public int getSize() {
+        return partList.size();
     }
 
-    public void parse() {
-
+    public BaseComponent getElement(int index) {
+        if(index >= getSize()); //throws exception
+        return partList.get(index);
     }
 
     public Iterator<BaseComponent> getIterator() {
         return partList.iterator();
+    }
+
+    @Override
+    public String toString() {
+
+        String out = "";
+
+        for (Iterator<BaseComponent>  partListIterator = getIterator();
+             partListIterator.hasNext(); ) {
+
+            BaseComponent baseComponent = partListIterator.next();
+            out += baseComponent.toString();
+        }
+        return out;
     }
 }

@@ -1,0 +1,6 @@
+# IDEA
+.idea/
+text_parser.iml
+
+# Maven
+target/
