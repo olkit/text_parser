@@ -2,6 +2,8 @@ package com.epam.olki.utils;
 
 import com.epam.olki.entities.Composite;
 import com.epam.olki.entities.Leaf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,11 +11,9 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by olki on 6/2/15.
- */
 public class TextParser {
 
+    private Logger logger = LoggerFactory.getLogger(TextParser.class);
     public static final String REGEX_LISTING = "\\s*(Start listing)([^\\t]+)(End listing)";
     public static final String REGEX_PARAGRAPH_WITH_LISTING = "((?:[^\\n][\\n]?)+)";
     //public static final String REGEX_PARAGRAPH_WITH_LISTING = "(\\s*(.+))([^(\\s*(Start listing)([^\\t]+)(End listing)\\s)])|\\s*(Start listing)([^\\t]+)(End listing)";
@@ -24,10 +24,7 @@ public class TextParser {
     public static final String REGEX_WORD_AND_SIGN = "([\\.,!\\?:;@]{1})|([^\\.,!\\?:;@]*)";
     public static final String REGEX_EMPTY = ".]*";
 
-    public static int del = 0;
-
     public TextParser() {
-
     }
 
     public Composite parse(String text) {
@@ -41,12 +38,13 @@ public class TextParser {
         Composite paragraphList;
         Pattern patternParagraph = Pattern
                 .compile(REGEX_PARAGRAPH_WITH_LISTING);
-        Leaf paragraphLeaf = null;
+        Leaf paragraphLeaf;
         String paragraph;
         Matcher matcher = patternParagraph.matcher(text);
         while (matcher.find()) {
             paragraphList = new Composite();
             paragraph = matcher.group();
+            logger.info("Paragraph is - {0}", paragraph);
             if (Pattern.matches(REGEX_LISTING, paragraph)) {
                 paragraphLeaf = new Leaf(paragraph);
                 paragraphList.addElement(paragraphLeaf);
@@ -62,12 +60,13 @@ public class TextParser {
         // parse to sentence
         Pattern patternSentence = Pattern.compile(REGEX_SENTENCE);
                 Matcher matcher = patternSentence.matcher(paragraph);
-        String sentence = "";
+        String sentence;
 
         Composite sentenceList;
         while (matcher.find()) {
             sentenceList = new Composite();
             sentence = matcher.group();
+            logger.info("Sentence is - {0}", sentence);
             parseToWord(sentenceList, sentence);
             paragraphList.addElement(sentenceList);
         }
@@ -77,12 +76,13 @@ public class TextParser {
                                       String sentence) {
         // parse to word
         Pattern patternWord = Pattern.compile(REGEX_WORD);
-        String word = "";
+        String word;
         Matcher matcher = patternWord.matcher(sentence);
         Composite wordList;
         while (matcher.find()) {
             wordList = new Composite();
             word = matcher.group();
+            logger.info("Word is - {0}", word);
             parseToSymbol(wordList, word);
             sentenceList.addElement(wordList);
         }
@@ -92,7 +92,7 @@ public class TextParser {
                                         String wordSign) {
         // parse to symbol
         Pattern pattern = Pattern.compile(REGEX_SYMBOL);
-        String symbol = "";
+        String symbol;
         Matcher matcher = pattern.matcher(wordSign);
         Leaf symbolLeaf;
         while (matcher.find()) {
