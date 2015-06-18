@@ -32,15 +32,16 @@ public class TextLoader {
             text = String.valueOf(sb);
             */
 
-            /* #2 implementation
+            /* #2 implementation*/
             byte[] encoded = Files.readAllBytes(Paths.get(path));
             return new String(encoded, "UTF-8");
-            */
 
-            /* #3 implementation*/
+
+            /* #3 implementation
             FileInputStream inFile = new FileInputStream(path);
             byte[] str = new byte[inFile.available()];
             text = new String(str); // String with all text
+            */
 
         } catch(UnsupportedEncodingException e) {
             logger.error(e.getMessage());

@@ -44,7 +44,7 @@ public class TextParser {
         while (matcher.find()) {
             paragraphList = new Composite();
             paragraph = matcher.group();
-            logger.info("Paragraph is - {0}", paragraph);
+            logger.info("Paragraph is - {}", paragraph);
             if (Pattern.matches(REGEX_LISTING, paragraph)) {
                 paragraphLeaf = new Leaf(paragraph);
                 paragraphList.addElement(paragraphLeaf);
@@ -66,7 +66,7 @@ public class TextParser {
         while (matcher.find()) {
             sentenceList = new Composite();
             sentence = matcher.group();
-            logger.info("Sentence is - {0}", sentence);
+            logger.info("Sentence is - {}", sentence);
             parseToWord(sentenceList, sentence);
             paragraphList.addElement(sentenceList);
         }
@@ -82,7 +82,7 @@ public class TextParser {
         while (matcher.find()) {
             wordList = new Composite();
             word = matcher.group();
-            logger.info("Word is - {0}", word);
+            logger.info("Word is - {}", word);
             parseToSymbol(wordList, word);
             sentenceList.addElement(wordList);
         }
